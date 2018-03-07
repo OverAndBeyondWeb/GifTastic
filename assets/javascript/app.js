@@ -9,18 +9,32 @@ cartoonCharacters.forEach(function(item) {
   var button = $('<button>');
 
   button.attr('data-name', item);
-  button.addClass('btn btn-primary m-5');
+  button.addClass('btn btn-primary m-5 gif');
   button.text(item);
-  $('body').append(button);
+  $('main').append(button);
 
-  button.click(function() {
-    console.log($(this).attr('data-name'));
-    $.ajax({
-      url: url,
-      method: 'GET'
-    })
-    .then(function(response) {
-      console.log(response);
-    });
+  
+});
+
+$('button[type=submit]').click(function(e) {
+  e.preventDefault();
+
+  var button = $('<button>');
+  var val = $('#add').val();
+  button.attr('data-name', val);
+  button.addClass('btn btn-primary m-5 gif');
+  button.text(val);
+  $('main').append(button);
+  val = '';
+});
+
+$('main').on('click', 'button.gif', function() {
+  console.log($(this).attr('data-name'));
+  $.ajax({
+    url: url,
+    method: 'GET'
+  })
+  .then(function(response) {
+    console.log(response);
   });
 });
