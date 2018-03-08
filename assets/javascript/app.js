@@ -4,29 +4,37 @@ var cartoonCharacters = [
   'sponge bob'
 ];
 
+function createButtons() {
+  cartoonCharacters.forEach(function(item) {
+    var button = $('<button>');
 
-cartoonCharacters.forEach(function(item) {
-  var button = $('<button>');
+    button.attr('data-name', item);
+    button.addClass('btn btn-primary m-5 gif-btn');
+    button.text(item);
+    $('#buttons').append(button);
 
-  button.attr('data-name', item);
-  button.addClass('btn btn-primary m-5 gif-btn');
-  button.text(item);
-  $('#buttons').append(button);
+    
+  });
+}
 
-  
+$(document).ready(function() {
+  createButtons();
+
+  $('button[type=submit]').click(function(e) {
+    e.preventDefault();
+
+    var val = $('#add').val();
+    if (val) {
+      cartoonCharacters.push(val);
+      $('#buttons').empty();
+      createButtons();
+      $('#add').val('');
+    }  
+  });
 });
 
-$('button[type=submit]').click(function(e) {
-  e.preventDefault();
 
-  var button = $('<button>');
-  var val = $('#add').val();
-  button.attr('data-name', val);
-  button.addClass('btn btn-primary m-5 gif-btn');
-  button.text(val);
-  $('#buttons').append(button);
-  val = '';
-});
+
 
 $('main').on('click', 'button.gif-btn', function() {
   console.log($(this).attr('data-name'));
